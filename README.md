@@ -1,7 +1,7 @@
-# NAFDAC AI Fake Drug Text & Barcode Checker
+# 🛡️ NAFDAC AI Anti-Counterfeit Verification System
 
 **Fellow Name:** Abdulhameed Idris  
-**Fellow ID:** FE2539271676  
+**Fellow ID:** FE/25/3927167605  
 **Track:** Artificial Intelligence & Machine Learning  
 **ALC:** Ibadan Digital Academy (Oyo State)  
 **Project Code:** AI-06  
@@ -9,18 +9,39 @@
 ---
 
 ## 📌 Project Overview
-This project addresses the critical challenge of counterfeit pharmaceutical products in Nigeria. It implements a **Dual-Layer Machine Learning Architecture** combined with barcode/text scanning to evaluate drug registration details against NAFDAC databases.
+Counterfeit pharmaceuticals pose a severe public health risk in Nigeria. This project delivers a **Dual-Layer Real-Time Anti-Counterfeit Verification System** combining official registry lookups with advanced machine learning inference and computer vision barcode scanning. 
 
-## 🏗️ System Architecture & Features
-* **Barcode & Text Processing:** Extracts registration codes and product details.
-* **Supervised Classification:** Random Forest Classifier trained to classify registered vs. fake drug signatures.
-* **Anomaly Detection:** Isolation Forest model to detect novel counterfeit patterns or altered NAFDAC numbers.
-* **Text Vectorization:** TF-IDF feature extraction for textual comparison.
+The system allows users to verify drug authenticity by either scanning product barcode/QR images or manually entering product details (Drug Name, NAFDAC Registration Number [NRN], and Manufacturer Name).
 
-## 📁 Repository Structure
-* `AI06_Fake_Drug_Checker_Idris_Abdulhamood_FE2539271676.ipynb` — Full end-to-end Google Colab notebook
-* `rf_model.pkl` — Trained Random Forest model
-* `isolation_forest.pkl` — Trained Isolation Forest model
-* `vectorizer.pkl` — TF-IDF Vectorizer
-* `nafdac_registered_drugs.csv` — Registered drugs database
-* `balanced_fake_drug_dataset.csv` — Training dataset
+---
+
+## 🏗️ System Architecture
+
+The verification pipeline operates across two complementary layers:
+
+```text
+                          [ Input: Barcode Image OR Typed Data ]
+                                            │
+                                            ▼
+                    ┌──────────────────────────────────────────────┐
+                    │  LAYER 1: Official Registry Exact Matching   │
+                    └──────────────────────┬───────────────────────┘
+                                           │
+                        ┌──────────────────┴──────────────────┐
+                        │                                     │
+                 [ Match Found ]                      [ No Match Found ]
+                        │                                     │
+                        ▼                                     ▼
+            🟢 100% AUTHENTIC PRODUCT          ┌─────────────────────────────┐
+             (Returns Registry Info)           │ LAYER 2: AI ML Engine       │
+                                               │ • TF-IDF Vectorizer         │
+                                               │ • Random Forest Classifier  │
+                                               │ • Isolation Forest Anomaly  │
+                                               └──────────────┬──────────────┘
+                                                              │
+                                            ┌─────────────────┴─────────────────┐
+                                            │                                   │
+                                    [ Suspicious/Fake ]                [ Critical Anomaly ]
+                                            │                                   │
+                                            ▼                                   ▼
+                                 🟠 / 🔴 COUNTERFEIT ALERT          🚨 UNLICENSED / TAMPERED
